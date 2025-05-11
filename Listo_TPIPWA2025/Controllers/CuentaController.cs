@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Listo_TPIPWA2025.BLL;
+using Listo_TPIPWA2025.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Listo_TPIPWA2025.Controllers
@@ -6,7 +8,9 @@ namespace Listo_TPIPWA2025.Controllers
     public class CuentaController : Controller
     {
         // GET: HomeController1
-        public ActionResult Index()
+
+        BLL_Usuario bllu = new BLL_Usuario();
+        public ActionResult Login()
         {
             return View();
         }
@@ -18,7 +22,7 @@ namespace Listo_TPIPWA2025.Controllers
         }
 
         // GET: HomeController1/Create
-        public ActionResult Create()
+        public ActionResult Registro()
         {
             return View();
         }
@@ -57,6 +61,31 @@ namespace Listo_TPIPWA2025.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public IActionResult Registro(Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                if (ModelState.IsValid)
+                {
+                    usuario.Id = new Random().Next(1, 10000);
+                    bllu.AgregarUsuario(usuario);
+                    HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
+                    HttpContext.Session.SetString("UsuarioNombre", usuario.Nombre ?? "");
+                    HttpContext.Session.SetString("UsuarioEmail", usuario.Email ?? "");
+
+                    // Mostrar un mensaje de bienvenida en TempData (solo dura una redirección)
+                    TempData["MensajeBienvenida"] = $"¡Bienvenido/a, {usuario.Nombre}!";
+
+                    return RedirectToAction("Inicio", "Inicio");
+
+                }
+                else { return RedirectToAction("Login"); }
+            }
+
+            return View(usuario);
         }
 
         // GET: HomeController1/Delete/5
