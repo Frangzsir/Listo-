@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Producto
+
 @{
+    ViewData["Title"] = "Ingredientes";
 }
+
+<section class="recetas-section py-5">
+    <div class="container">
+        <img src="@Model.ImagenUrl" class="img-fluid rounded-top mb-4" alt="@Model.Nombre" style="width: 100%; max-height: 400px; object-fit: cover;">
+
+        <h1 class="text-center fw-bold mb-4">@Model.Nombre</h1>
+        @if(Model.Receta!=null){
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-3">🧂 Ingredientes</h3>
+                    <div class="row row-cols-1 g-3">
+                        @if(@Model.Receta.Ingredientes!=null)
+                        {
+                            @foreach (string ingrediente in Model.Receta.Ingredientes)
+                            {
+                                <div class="col">
+                                    <div class="border rounded p-3 bg-white shadow-sm d-flex align-items-center">
+                                        <i class="bi bi-basket2-fill text-success me-3 fs-4"></i>
+                                        <span class="fs-5">@ingrediente</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="fw-bold mb-3">🧑‍🍳 Preparación</h3>
+                    @if(Model.Receta.Instrucciones!=null)
+                    {
+                        <ol class="list-group list-group-numbered">
+                            @foreach (string paso in Model.Receta.Instrucciones)
+                            {
+                                <li class="list-group-item">@paso</li>
+                            }
+                        </ol>
+                    }
+                    <div class="mt-4">
+                        <p><i class="bi bi-clock-fill me-2 text-primary"></i> <strong>⏲️ Tiempo:</strong> @Model.Receta.TiempoPreparacion</p> 
+                        <p><i class="bi bi-people-fill me-2 text-primary"></i> <strong>🍽️ Porciones:</strong> @Model.Receta.Porciones</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

@@ -11,7 +11,7 @@ namespace Listo_TPIPWA2025.Models
         public string? ImagenUrl { get; set; }
         public decimal? Precio { get; set; }
         public decimal? PrecioDescuento { get; set; }
-        public List<Receta>? Receta { get; set; }
+        public Receta? Receta { get; set; }
 
 
     }
@@ -19,9 +19,11 @@ namespace Listo_TPIPWA2025.Models
 
     public class Receta
     {
-        public Receta(string pIng, string pInst, string pTiem, string porc) { }
-        public string? Ingredientes { get; set; }
-        public string? Instrucciones { get; set; }
+        public Receta(List<string> pIng, List<string> pInst, string pTiem, string porc) { Ingredientes = pIng; Instrucciones = pInst; TiempoPreparacion = pTiem; Porciones = porc; }
+
+        public Receta() { }
+        public List<string>? Ingredientes { get; set; }
+        public List<string>? Instrucciones { get; set; }
         public string? TiempoPreparacion { get; set; }
         public string? Porciones { get; set; }
 

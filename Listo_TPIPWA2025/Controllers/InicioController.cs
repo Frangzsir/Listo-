@@ -14,7 +14,7 @@ namespace Listo_TPIPWA2025.Controllers
 
             BLL_Producto bllp = new BLL_Producto();
             bllp.AgregarProducto(new Producto { Id = 1, Nombre = "Risotto de hongos", ImagenUrl = "/images/productos/risotto.jpg", Precio = 3500, PrecioDescuento = 2990 });
-            bllp.AgregarProducto(new Producto { Id = 2, Nombre = "Curry de garbanzos", ImagenUrl = "/images/productos/curry.jpg", Precio = 3200, PrecioDescuento = 2600 });
+            bllp.AgregarProducto(new Producto { Id = 2, Nombre = "Curry", ImagenUrl = "/images/productos/curry.jpg", Precio = 3200, PrecioDescuento = 2600 });
             bllp.AgregarProducto(new Producto { Id = 3, Nombre = "Ensalada César", ImagenUrl = "/images/productos/caesar.jpg", Precio = 2800, PrecioDescuento = 2500 });
             return View(bllp.RetornaProductos());
         }

@@ -19,13 +19,33 @@ namespace Listo_TPIPWA2025.Controllers
             return View(bllp.RetornaProductos());
         }
 
+        //Hardcodear recetas
+        public void AgregarRecetas()
+        {
+            //Risotto de hongos
+            Receta rece = new Receta(new List<string> { "250 gramos de arroz Arborio", "Caldo de verduras", "450 gramos de hongos portobello o champiñones", "1 cebolla mediana", "2 dientes de ajo", "Caldo de verduras", "100 ml de vino blanco seco", "80 gramos de manteca", "50 gtamos de queso parmesano rallado" },
+    new List<string> { "En una sartén grande, calentá el aceite de oliva a fuego medio y añadí la cebolla y el ajo. Cociná hasta que estén transparentes.",
+                "Agregá los hongos y salteá hasta que estén dorados y hayan soltado su líquido",
+                "Añadí el arroz y mezclá bien, permitiendo que se toste ligeramente durante unos 2 minutos.",
+                "Vertí el vino blanco y cocina hasta que se haya evaporado casi por completo.",
+                "Comenzá a añadir el caldo caliente, una cucharada a la vez, removiendo constantemente y esperando a que el arroz absorba el líquido antes de agregar más.",
+                "Continuá este proceso durante unos 18-20 minutos, hasta que el arroz esté al dente y tenga una textura cremosa.",
+                "Retirá la sartén del fuego y añade la mantequilla y el queso parmesano, mezclando bien hasta que se fundan y se integren completamente.",
+                "Ajustá la sal y la pimienta al gusto.",
+                "Serví el risotto inmediatamente, decorado con perejil fresco picado si lo deseás."},
+    "25'", "2"
+);
+            bllp.AgregarRecetaProducto(rece, 1);
+
+        }
+
         // GET: RecetasController/Details/5
         public ActionResult Ingredientes(int id)
         {
-            //List<Producto> lp = bllp.RetornaProductos();
-            Receta rece = new Receta();
-            bllp.AgregarRecetaProducto(new Receta { },id);
-            return View();
+            AgregarRecetas();
+            Producto? prod = new Producto();
+            prod =bllp.EncontrarProducto(id);
+            return View(prod);
         }
 
         // GET: RecetasController/Create
