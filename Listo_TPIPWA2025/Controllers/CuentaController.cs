@@ -70,14 +70,27 @@ namespace Listo_TPIPWA2025.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (usuario.Apellido==null)
+                    {
+                        TempData["AlertType"] = "danger"; // success, warning, info, danger
+                        TempData["AlertMessage"] = "El apellido es obligatorio.";
+                        return RedirectToAction("Registro");
+                    }
+                    if (usuario.Nombre==null)
+                    {
+                        TempData["AlertType"] = "danger";
+                        TempData["AlertMessage"] = "El nombre es obligatorio.";
+                        return RedirectToAction("Registro");
+                    }
+                    if (usuario.Email==null)
+                    {
+                        TempData["AlertType"] = "danger";
+                        TempData["AlertMessage"] = "El email es obligatorio.";
+                        return RedirectToAction("Registro");
+                    }
                     usuario.Id = new Random().Next(1, 10000);
                     bllu.AgregarUsuario(usuario);
-                    HttpContext.Session.SetInt32("UsuarioId", usuario.Id);
-                    HttpContext.Session.SetString("UsuarioNombre", usuario.Nombre ?? "");
-                    HttpContext.Session.SetString("UsuarioEmail", usuario.Email ?? "");
-
-                    // Mostrar un mensaje de bienvenida en TempData (solo dura una redirección)
-                    TempData["MensajeBienvenida"] = $"¡Bienvenido/a, {usuario.Nombre}!";
+                    TempData["Toast"] = $"¡Bienvenido/a, {usuario.Nombre}!";
 
                     return RedirectToAction("Inicio", "Inicio");
 

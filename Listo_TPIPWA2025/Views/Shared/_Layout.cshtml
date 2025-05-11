@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Listo_TPIPWA2025.styles.css" asp-append-version="true" />
 </head>
+
+
+
+
 <body>
 
     <header>
@@ -56,4 +60,18 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+@await Html.PartialAsync("_AlertMessage")
+@await Html.PartialAsync("_Toast")
 </html>
+
+@section Scripts {
+    <script>
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        toastElList.map(function (toastEl) {
+            const option = {
+                delay: 4000
+            };
+            new bootstrap.Toast(toastEl, option).show();
+        });
+    </script>
+}
