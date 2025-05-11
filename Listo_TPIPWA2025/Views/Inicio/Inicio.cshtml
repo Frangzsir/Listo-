@@ -9,7 +9,7 @@
     <div class="container" style="position: relative; z-index: 2;">
         <h1 class="display-4 fw-bold">¡Recetas fáciles y deliciosas!</h1>
         <p class="lead">Recibe en tu casa todo lo que necesitás para cocinar como un chef.</p>
-        <a href="#" class="btn btn-lg btn-success mt-3">Ver Recetas</a>
+        <a asp-controller="Recetas" asp-action="Recetas" class="btn btn-lg btn-success mt-3">Ver Recetas</a>
     </div>
 </section>
 
@@ -38,13 +38,15 @@
 
 <section class="recetas-section py-5 bg-light">
     <div class="container text-center">
-        <h2 class="mb-4 fw-bold">Recetas destacadas</h2>
-        <p class="mb-5">Descubrí opciones fáciles, ricas y pensadas para cada día de la semana.</p>
+        <h2 class="mb-4 fw-bold">Recetas de la semana</h2>
+        <p class="mb-5">Descubrí las opciones destacadas de la semana, a un precio reducido.</p>
 
         <div class="row justify-content-center">
-            @foreach (var producto in Model)
+            @foreach (Producto producto in Model)
             {
-                <div class="col-md-4 mb-4">
+                if (producto.PrecioDescuento != null)
+                {
+                    <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0">
                         <div class="ratio ratio-4x3">
                             <img src="@producto.ImagenUrl" class="img-fluid rounded-top object-fit-cover" alt="@producto.Nombre">
@@ -57,10 +59,10 @@
                                     $@producto.Precio
                                 </span>
                             </p>
-                            <a href="#" class="btn btn-outline-success">Ver receta</a>
+                            <a href="#" class="btn btn-outline-success">Ver Ingredientes</a>
                         </div>
                     </div>
-                </div>
+                </div>}
             }
         </div>
     </div>

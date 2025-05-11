@@ -2,37 +2,39 @@
 using Listo_TPIPWA2025.BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Listo_TPIPWA2025.Controllers
 {
-    public class InicioController : Controller
+    public class RecetasController : Controller
     {
-        // GET: HomeController1
-        public ActionResult Inicio()
-        {
+        // GET: RecetasController
 
-            BLL_Producto bllp = new BLL_Producto();
-            bllp.AgregarProducto(new Producto { Id = 1, Nombre = "Risotto de hongos", ImagenUrl = "/images/productos/risotto.jpg", Precio = 3500, PrecioDescuento = 2990 });
-            bllp.AgregarProducto(new Producto { Id = 2, Nombre = "Curry de garbanzos", ImagenUrl = "/images/productos/curry.jpg", Precio = 3200, PrecioDescuento = 2600 });
-            bllp.AgregarProducto(new Producto { Id = 3, Nombre = "Ensalada César", ImagenUrl = "/images/productos/caesar.jpg", Precio = 2800, PrecioDescuento = 2500 });
+        BLL_Producto bllp = new BLL_Producto();
+        public ActionResult Recetas()
+        {
+           
+            bllp.AgregarProducto(new Producto { Id = 4, Nombre = "Shoyu Ramen", ImagenUrl = "/images/productos/sramen.jpg", Precio = 3400 });
+            bllp.AgregarProducto(new Producto { Id = 5, Nombre = "Bife de chorizo", ImagenUrl = "/images/productos/bchorizo.jpg", Precio = 3700 });
+            bllp.AgregarProducto(new Producto { Id = 6, Nombre = "Pollo a la mostaza", ImagenUrl = "/images/productos/pollomostaza.jpg", Precio = 3300 });
             return View(bllp.RetornaProductos());
         }
 
-
-        // GET: HomeController1/Details/5
-        public ActionResult Details(int id)
+        // GET: RecetasController/Details/5
+        public ActionResult Ingredientes(int id)
         {
+            //List<Producto> lp = bllp.RetornaProductos();
+            Receta rece = new Receta();
+            bllp.AgregarRecetaProducto(new Receta { },id);
             return View();
         }
 
-        // GET: HomeController1/Create
+        // GET: RecetasController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: HomeController1/Create
+        // POST: RecetasController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -47,13 +49,13 @@ namespace Listo_TPIPWA2025.Controllers
             }
         }
 
-        // GET: HomeController1/Edit/5
+        // GET: RecetasController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: HomeController1/Edit/5
+        // POST: RecetasController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -68,13 +70,13 @@ namespace Listo_TPIPWA2025.Controllers
             }
         }
 
-        // GET: HomeController1/Delete/5
+        // GET: RecetasController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: HomeController1/Delete/5
+        // POST: RecetasController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
