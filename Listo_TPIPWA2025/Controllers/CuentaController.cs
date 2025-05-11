@@ -10,9 +10,16 @@ namespace Listo_TPIPWA2025.Controllers
         // GET: HomeController1
 
         BLL_Usuario bllu = new BLL_Usuario();
-        public ActionResult Login()
+
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Inicio", "Inicio");
         }
 
         // GET: HomeController1/Details/5
@@ -72,7 +79,7 @@ namespace Listo_TPIPWA2025.Controllers
                 {
                     if (usuario.Apellido==null)
                     {
-                        TempData["AlertType"] = "danger"; // success, warning, info, danger
+                        TempData["AlertType"] = "danger";
                         TempData["AlertMessage"] = "El apellido es obligatorio.";
                         return RedirectToAction("Registro");
                     }
@@ -90,15 +97,40 @@ namespace Listo_TPIPWA2025.Controllers
                     }
                     usuario.Id = new Random().Next(1, 10000);
                     bllu.AgregarUsuario(usuario);
-                    TempData["Toast"] = $"¡Bienvenido/a, {usuario.Nombre}!";
+                    TempData["Toast"] = $"¡Te registraste exitosamente, {usuario.Nombre}!";
 
-                    return RedirectToAction("Inicio", "Inicio");
+                    return RedirectToAction("Login");
 
                 }
-                else { return RedirectToAction("Login"); }
+                else { return RedirectToAction("Inicio","inicio"); }
             }
 
             return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(string email, string password)
+        {
+            if (!bllu.ValidarEmail(email))
+            {
+                TempData["ToastError"] = "Email incorrecto.";
+                return View();
+            }
+
+            if(!bllu.ValidarPwd(password))
+            {
+                TempData["ToastError"] = "Contraseña incorrecta.";
+                return View();
+            }
+            Usuario? usuario = bllu.RetornaUsuario(email, password);
+
+            if (usuario != null)
+            {
+                TempData["ToastMessage"] = $"¡Bienvenido/a, {usuario.Nombre}!";
+                return RedirectToAction("Inicio", "Inicio");
+            }
+            return View();
         }
 
         // GET: HomeController1/Delete/5
